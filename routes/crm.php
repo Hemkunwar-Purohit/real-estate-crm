@@ -6,7 +6,9 @@ use App\Http\Controllers\CRM\DealController;
 use App\Http\Controllers\CRM\LeadController;
 use App\Http\Controllers\CRM\PropertyController;
 use App\Http\Controllers\CRM\SiteVisitController;
+use App\Http\Controllers\CRM\UserController;
 
+// Users — Admin only
 Route::middleware(['auth', 'verified'])
     ->prefix('crm')
     ->name('crm.')
@@ -37,5 +39,10 @@ Route::middleware(['auth', 'verified'])
         Route::resource('site-visits', SiteVisitController::class);
         Route::patch('site-visits/{visit}/complete', [SiteVisitController::class, 'markComplete'])
             ->name('site-visits.complete');
+
+            // Users
+        Route::resource('users', UserController::class)->except(['show']);
+        Route::patch('users/{user}/toggle-status', [UserController::class, 'toggleStatus'])
+             ->name('users.toggle-status');
 
     });

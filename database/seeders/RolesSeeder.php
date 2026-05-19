@@ -62,5 +62,25 @@ class RolesSeeder extends Seeder
             ]
         );
         $user->assignRole('admin');
+
+        // Manager user
+$manager = User::firstOrCreate(
+    ['email' => 'manager@demo.com'],
+    [
+        'name'     => 'Rajesh Manager',
+        'password' => bcrypt('password'),
+    ]
+);
+$manager->assignRole('manager');
+
+// Agent user
+$agent1 = User::firstOrCreate(
+    ['email' => 'agent@demo.com'],
+    [
+        'name'     => 'Priya Agent',
+        'password' => bcrypt('password'),
+    ]
+);
+$agent1->assignRole('agent');
     }
 }
