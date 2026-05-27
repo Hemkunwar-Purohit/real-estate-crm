@@ -1,59 +1,233 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# RealEstate CRM
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A powerful Real Estate CRM built with Laravel 12 for managing leads, clients, properties, deals, and site visits.
 
-## About Laravel
+## 🚀 Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Lead Management** — Capture and track leads from multiple sources (MagicBricks, 99acres, Housing.com, etc.)
+- **Client Management** — Manage buyers, sellers, tenants, and landlords
+- **Property Listings** — Track properties with RERA number, price, location details
+- **Deal Pipeline** — Kanban board with drag & drop stage management
+- **Site Visits** — Schedule and track property visits with feedback
+- **Reports & Analytics** — Revenue charts, lead source analysis, agent performance
+- **Excel Export** — Export leads and deals to Excel
+- **User Management** — Role-based access (Admin, Manager, Agent)
+- **Activity Log** — Track all changes automatically
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 📋 Requirements
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- PHP >= 8.2
+- MySQL >= 5.7 or MariaDB >= 10.3
+- Composer >= 2.x
+- Node.js >= 18.x (for assets)
+- Laravel 12.x
 
-## Learning Laravel
+## ⚡ Installation
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### Step 1 — Clone / Extract
+```bash
+cd /your/htdocs/folder
+# Extract the zip file here
+cd real-estate-crm
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Step 2 — Install dependencies
+```bash
+composer install
+npm install
+npm run build
+```
 
-## Laravel Sponsors
+### Step 3 — Environment setup
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Edit `.env` file:
+```env
+APP_NAME="RealEstateCRM"
+APP_URL=http://localhost
 
-### Premium Partners
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=realestate_crm
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Step 4 — Database setup
+```bash
+php artisan migrate
+php artisan db:seed
+php artisan storage:link
+```
 
-## Contributing
+### Step 5 — Run
+```bash
+php artisan serve
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Open: `http://localhost:8000`
 
-## Code of Conduct
+## 🔐 Demo Credentials
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+| Role    | Email              | Password |
+|---------|--------------------|----------|
+| Admin   | admin@demo.com     | password |
+| Manager | manager@demo.com   | password |
+| Agent   | agent@demo.com     | password |
 
-## Security Vulnerabilities
+## 👥 User Roles
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+| Feature          | Admin | Manager | Agent |
+|------------------|-------|---------|-------|
+| Leads            | ✅    | ✅      | ✅    |
+| Clients          | ✅    | ✅      | ✅    |
+| Properties       | ✅    | ✅      | ✅    |
+| Deals            | ✅    | ✅      | ✅    |
+| Reports          | ✅    | ✅      | ❌    |
+| User Management  | ✅    | ❌      | ❌    |
+| Settings         | ✅    | ❌      | ❌    |
 
-## License
+## 🛠 Tech Stack
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- **Backend**: Laravel 12, PHP 8.2
+- **Frontend**: AdminLTE 3, Bootstrap 5, Chart.js
+- **Database**: MySQL
+- **Packages**: Spatie Permission, Spatie ActivityLog, FastExcel
+
+## 📁 Folder Structure
+
+PART B: README.md BANAO
+README.md root mein banao:
+markdown# RealEstate CRM
+
+A powerful Real Estate CRM built with Laravel 12 for managing leads, clients, properties, deals, and site visits.
+
+## 🚀 Features
+
+- **Lead Management** — Capture and track leads from multiple sources (MagicBricks, 99acres, Housing.com, etc.)
+- **Client Management** — Manage buyers, sellers, tenants, and landlords
+- **Property Listings** — Track properties with RERA number, price, location details
+- **Deal Pipeline** — Kanban board with drag & drop stage management
+- **Site Visits** — Schedule and track property visits with feedback
+- **Reports & Analytics** — Revenue charts, lead source analysis, agent performance
+- **Excel Export** — Export leads and deals to Excel
+- **User Management** — Role-based access (Admin, Manager, Agent)
+- **Activity Log** — Track all changes automatically
+
+## 📋 Requirements
+
+- PHP >= 8.2
+- MySQL >= 5.7 or MariaDB >= 10.3
+- Composer >= 2.x
+- Node.js >= 18.x (for assets)
+- Laravel 12.x
+
+## ⚡ Installation
+
+### Step 1 — Clone / Extract
+```bash
+cd /your/htdocs/folder
+# Extract the zip file here
+cd real-estate-crm
+```
+
+### Step 2 — Install dependencies
+```bash
+composer install
+npm install
+npm run build
+```
+
+### Step 3 — Environment setup
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+Edit `.env` file:
+```env
+APP_NAME="RealEstate CRM"
+APP_URL=http://localhost
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=realestate_crm
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+### Step 4 — Database setup
+```bash
+php artisan migrate
+php artisan db:seed
+php artisan storage:link
+```
+
+### Step 5 — Run
+```bash
+php artisan serve
+```
+
+Open: `http://localhost:8000`
+
+## 🔐 Demo Credentials
+
+| Role    | Email              | Password |
+|---------|--------------------|----------|
+| Admin   | admin@demo.com     | password |
+| Manager | manager@demo.com   | password |
+| Agent   | agent@demo.com     | password |
+
+## 👥 User Roles
+
+| Feature          | Admin | Manager | Agent |
+|------------------|-------|---------|-------|
+| Leads            | ✅    | ✅      | ✅    |
+| Clients          | ✅    | ✅      | ✅    |
+| Properties       | ✅    | ✅      | ✅    |
+| Deals            | ✅    | ✅      | ✅    |
+| Reports          | ✅    | ✅      | ❌    |
+| User Management  | ✅    | ❌      | ❌    |
+| Settings         | ✅    | ❌      | ❌    |
+
+## 🛠 Tech Stack
+
+- **Backend**: Laravel 12, PHP 8.2
+- **Frontend**: AdminLTE 3, Bootstrap 5, Chart.js
+- **Database**: MySQL
+- **Packages**: Spatie Permission, Spatie ActivityLog, FastExcel
+
+## 📁 Folder Structure
+app/
+├── Http/Controllers/CRM/    # All CRM controllers
+├── Models/                  # Eloquent models
+├── Services/                # Business logic
+├── Exports/                 # Excel exports
+└── Policies/                # Authorization policies
+resources/views/crm/         # All Blade views
+routes/crm.php               # CRM routes
+config/crm.php               # CRM configuration
+
+## ⚙️ Configuration
+
+All CRM settings are in `config/crm.php`:
+- Pipeline stages
+- Property types
+- Lead sources
+- Currencies
+
+## 📝 Changelog
+
+### v1.0.0 (2025)
+- Initial release
+- Lead, Client, Property, Deal management
+- Kanban pipeline board
+- Site visit scheduling
+- Reports & Excel export
+- Role-based access control
+

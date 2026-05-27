@@ -33,24 +33,22 @@ class DashboardController extends Controller
 
         // My leads
         $myLeads = Lead::with('assignedAgent:id,name')
-                    ->where('assigned_to', $user->id)
-                    ->active()
-                    ->latest()
-                    ->take(5)
-                    ->get();
-
+            ->where('assigned_to', $user->id)
+            ->active()
+            ->latest()
+            ->take(5)
+            ->get();
 
         // Upcoming site visits
         $upcomingSiteVisits = SiteVisit::with([
-                    'lead:id,name,phone',
-                    'property:id,title,city',
-                ])
-                    ->where('status', 'scheduled')
-                    ->where('visit_datetime', '>=', now())
-                    ->orderBy('visit_datetime')
-                    ->take(5)
-                    ->get();
-
+            'lead:id,name,phone',
+            'property:id,title,city',
+        ])
+            ->where('status', 'scheduled')
+            ->where('visit_datetime', '>=', now())
+            ->orderBy('visit_datetime')
+            ->take(5)
+            ->get();
 
         // Today's visits
         $todayVisits = SiteVisit::with(['lead', 'property', 'agent'])
@@ -81,10 +79,10 @@ class DashboardController extends Controller
         //     ->get();
 
         $recentDeals = Deal::with([
-                'client:id,name',
-                'property:id,title,city',
-                'assignedAgent:id,name',
-            ])
+            'client:id,name',
+            'property:id,title,city',
+            'assignedAgent:id,name',
+        ])
             ->latest()
             ->take(5)
             ->get();

@@ -19,8 +19,8 @@ class ClientController extends Controller
     public function index(Request $request)
     {
         $query = Client::with('assignedAgent')
-    ->withCount('deals')  
-    ->latest();
+            ->withCount('deals')
+            ->latest();
 
         if ($request->filled('search')) {
             $query->where(function ($q) use ($request) {

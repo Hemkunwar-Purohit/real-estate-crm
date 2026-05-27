@@ -79,6 +79,7 @@
         </h3>
     </div>
     <div class="card-body p-0">
+        <div class="table-responsive">
         <table class="table table-hover table-sm mb-0">
             <thead class="table-light">
                 <tr>
@@ -176,17 +177,23 @@
                         </div>
                     </td>
                 </tr>
-                @empty
-                <tr>
-                    <td colspan="10" class="text-center text-muted py-4">
-                        <i class="fas fa-user-clock fa-2x mb-2 d-block"></i>
-                        No leads found.
-                        <a href="{{ route('crm.leads.create') }}">Add your first lead</a>
-                    </td>
-                </tr>
-                @endforelse
+               @empty
+<tr>
+    <td colspan="10">
+        <div class="text-center py-5">
+            <i class="fas fa-inbox fa-3x text-muted mb-3 d-block"></i>
+            <h5 class="text-muted">No records found</h5>
+            <p class="text-muted mb-3">Get started by adding your first record</p>
+            <a href="{{ route('crm.leads.create') }}" class="btn btn-primary btn-sm">
+                <i class="fas fa-plus me-1"></i> Add Now
+            </a>
+        </div>
+    </td>
+</tr>
+@endforelse
             </tbody>
         </table>
+    </div>
     </div>
     <div class="card-footer">
         {{ $leads->links() }}

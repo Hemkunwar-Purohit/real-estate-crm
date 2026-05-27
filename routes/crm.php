@@ -5,6 +5,7 @@ use App\Http\Controllers\CRM\DashboardController;
 use App\Http\Controllers\CRM\DealController;
 use App\Http\Controllers\CRM\LeadController;
 use App\Http\Controllers\CRM\PropertyController;
+use App\Http\Controllers\CRM\ReportController;
 use App\Http\Controllers\CRM\SiteVisitController;
 use App\Http\Controllers\CRM\UserController;
 
@@ -40,9 +41,19 @@ Route::middleware(['auth', 'verified'])
         Route::patch('site-visits/{visit}/complete', [SiteVisitController::class, 'markComplete'])
             ->name('site-visits.complete');
 
-            // Users
+        // Users
         Route::resource('users', UserController::class)->except(['show']);
         Route::patch('users/{user}/toggle-status', [UserController::class, 'toggleStatus'])
-             ->name('users.toggle-status');
+            ->name('users.toggle-status');
+
+        // Reports
+        Route::prefix('reports')->name('reports.')->group(function () {
+            Route::get('/', [ReportController::class, 'index'])->name('index');
+            Route::get('/leads', [ReportController::class, 'leads'])->name('leads');
+            Route::get('/deals', [ReportController::class, 'deals'])->name('deals');
+            Route::get('/properties', [ReportController::class, 'properties'])->name('properties');
+            Route::get('/export/leads', [ReportController::class, 'exportLeads'])->name('export.leads');
+            Route::get('/export/deals', [ReportController::class, 'exportDeals'])->name('export.deals');
+        });
 
     });

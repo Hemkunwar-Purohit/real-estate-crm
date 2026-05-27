@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RealEstate CRM — Documentation</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; }
+        h1 { color: #007bff; }
+        h2 { color: #333; border-bottom: 2px solid #007bff; padding-bottom: 5px; }
+        code { background: #f4f4f4; padding: 2px 8px; border-radius: 4px; }
+        pre { background: #f4f4f4; padding: 15px; border-radius: 8px; overflow-x: auto; }
+        .badge { background: #007bff; color: white; padding: 3px 10px; border-radius: 20px; font-size: 12px; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        th { background: #007bff; color: white; padding: 8px; }
+        td { padding: 8px; border: 1px solid #ddd; }
+        tr:nth-child(even) { background: #f9f9f9; }
+    </style>
+</head>
+<body>
+
+<h1>🏠 RealEstate CRM — Documentation</h1>
+<p><span class="badge">Version 1.0.0</span> &nbsp; <span class="badge">Laravel 12</span> &nbsp; <span class="badge">PHP 8.2+</span></p>
+
+<h2>📋 Requirements</h2>
+<ul>
+    <li>PHP >= 8.2</li>
+    <li>MySQL >= 5.7</li>
+    <li>Composer >= 2.x</li>
+    <li>Node.js >= 18.x</li>
+</ul>
+
+<h2>⚡ Installation Steps</h2>
+
+<h3>Step 1 — Extract & Setup</h3>
+<pre>
+cd /your/htdocs/folder
+# Extract the ZIP file
+cd real-estate-crm
+</pre>
+
+<h3>Step 2 — Install Dependencies</h3>
+<pre>
+composer install
+npm install
+npm run build
+</pre>
+
+<h3>Step 3 — Environment Setup</h3>
+<pre>
+cp .env.example .env
+php artisan key:generate
+</pre>
+
+<p>Edit <code>.env</code> file:</p>
+<pre>
+APP_NAME="RealEstateCRM"
+APP_URL=http://localhost
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=realestate_crm
+DB_USERNAME=root
+DB_PASSWORD=
+</pre>
+
+<h3>Step 4 — Database Setup</h3>
+<pre>
+php artisan migrate
+php artisan db:seed
+php artisan storage:link
+</pre>
+
+<h3>Step 5 — Run</h3>
+<pre>php artisan serve</pre>
+<p>Open: <code>http://localhost:8000</code></p>
+
+<h2>🔐 Demo Credentials</h2>
+<table>
+    <tr><th>Role</th><th>Email</th><th>Password</th></tr>
+    <tr><td>Admin</td><td>admin@demo.com</td><td>password</td></tr>
+    <tr><td>Manager</td><td>manager@demo.com</td><td>password</td></tr>
+    <tr><td>Agent</td><td>agent@demo.com</td><td>password</td></tr>
+</table>
+
+<h2>👥 User Roles</h2>
+<table>
+    <tr><th>Feature</th><th>Admin</th><th>Manager</th><th>Agent</th></tr>
+    <tr><td>Leads</td><td>✅</td><td>✅</td><td>✅</td></tr>
+    <tr><td>Clients</td><td>✅</td><td>✅</td><td>✅</td></tr>
+    <tr><td>Properties</td><td>✅</td><td>✅</td><td>✅</td></tr>
+    <tr><td>Deals</td><td>✅</td><td>✅</td><td>✅</td></tr>
+    <tr><td>Reports</td><td>✅</td><td>✅</td><td>❌</td></tr>
+    <tr><td>Users</td><td>✅</td><td>❌</td><td>❌</td></tr>
+    <tr><td>Settings</td><td>✅</td><td>❌</td><td>❌</td></tr>
+</table>
+
+<h2>🚀 Features</h2>
+<ul>
+    <li><strong>Lead Management</strong> — Multiple sources (MagicBricks, 99acres, Housing.com)</li>
+    <li><strong>Client Management</strong> — Buyer, Seller, Tenant, Landlord</li>
+    <li><strong>Property Listings</strong> — RERA number, price, location</li>
+    <li><strong>Deal Pipeline</strong> — Kanban board with drag & drop</li>
+    <li><strong>Site Visits</strong> — Schedule, track, feedback</li>
+    <li><strong>Reports</strong> — Charts, analytics, Excel export</li>
+    <li><strong>User Management</strong> — Role-based access</li>
+    <li><strong>Activity Log</strong> — All changes tracked</li>
+</ul>
+
+<h2>⚙️ Configuration</h2>
+<p>All settings in <code>config/crm.php</code>:</p>
+<pre>
+// Pipeline stages customize karo
+'pipeline_stages' => [
+    'new'         => 'New Inquiry',
+    'site_visit'  => 'Site Visit',
+    ...
+],
+
+// Lead sources add karo
+'lead_sources' => [...],
+
+// Currencies
+'currencies' => ['INR', 'USD', 'AED'],
+</pre>
+
+<h2>🆘 Support</h2>
+<p>Email: <strong>hranawat969@gmail.com</strong></p>
+<p>Response time: 24-48 hours</p>
+
+</body>
+</html>

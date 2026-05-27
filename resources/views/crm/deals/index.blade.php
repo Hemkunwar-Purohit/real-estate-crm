@@ -159,6 +159,7 @@
             <h3 class="card-title">All Deals <span class="badge bg-primary ms-2">{{ $deals->total() }}</span></h3>
         </div>
         <div class="card-body p-0">
+            <div class="table-responsive">
             <table class="table table-hover table-sm mb-0">
                 <thead class="table-light">
                     <tr>
@@ -221,6 +222,7 @@
                     @endforelse
                 </tbody>
             </table>
+        </div>
         </div>
         <div class="card-footer">{{ $deals->links() }}</div>
     </div>
