@@ -6,13 +6,16 @@ use App\Models\Client;
 use App\Models\Deal;
 use App\Models\Lead;
 use App\Models\User;
+use App\Models\Property;
+use App\Models\SiteVisit;
 use Illuminate\Database\Seeder;
 
 class DemoDataSeeder extends Seeder
 {
     public function run(): void
     {
-        $agent = User::first();
+        // $agent = User::first();
+        $agent = User::where('email', 'admin@demo.com')->first();
 
         // =====================
         // LEADS
@@ -36,6 +39,55 @@ class DemoDataSeeder extends Seeder
             ]));
         }
 
+        $leadNames = [
+    'Arjun Mehta','Pooja Jain','Karan Shah','Sneha Kapoor',
+    'Mohit Yadav','Anjali Gupta','Rohit Verma','Nidhi Sharma',
+    'Sanjay Patel','Ritika Singh','Harsh Agrawal','Komal Joshi',
+    'Abhishek Mishra','Shweta Tiwari','Manoj Soni','Aarti Dubey',
+    'Yash Malhotra','Rohan Bansal','Divya Chouhan','Tarun Jain',
+];
+
+foreach ($leadNames as $name) {
+
+    Lead::create([
+        'name' => $name,
+        'phone' => '98'.rand(10000000,99999999),
+        'email' => strtolower(str_replace(' ','.', $name)).'@gmail.com',
+        'source' => collect([
+            'google',
+            'facebook',
+            'website',
+            '99acres',
+            'magicbricks',
+            'housing',
+            'referral'
+        ])->random(),
+        'listing_type' => collect(['buy','rent'])->random(),
+        'status' => collect([
+            'new',
+            'contacted',
+            'qualified'
+        ])->random(),
+        'preferred_city' => collect([
+            'Mumbai',
+            'Pune',
+            'Delhi',
+            'Indore',
+            'Bangalore',
+            'Hyderabad'
+        ])->random(),
+        'budget_min' => rand(1000000,5000000),
+        'budget_max' => rand(6000000,25000000),
+        'property_type' => collect([
+            'apartment',
+            'villa',
+            'plot',
+            'office'
+        ])->random(),
+        'assigned_to' => $agent->id,
+    ]);
+}
+
         // =====================
         // CLIENTS
         // =====================
@@ -54,6 +106,149 @@ class DemoDataSeeder extends Seeder
                 'email' => strtolower(str_replace(' ', '.', $clientData['name'])).'@gmail.com',
             ]));
         }
+
+        for ($i = 1; $i <= 15; $i++) {
+
+    Client::create([
+        'name' => "Client {$i}",
+        'phone' => '97'.rand(10000000,99999999),
+        'email' => "client{$i}@demo.com",
+        'type' => collect([
+            'buyer',
+            'seller',
+            'landlord'
+        ])->random(),
+        'city' => collect([
+            'Mumbai',
+            'Pune',
+            'Delhi',
+            'Indore',
+            'Bangalore'
+        ])->random(),
+        'source' => collect([
+            'google',
+            'website',
+            'referral',
+            'walk_in',
+            'magicbricks'
+        ])->random(),
+        'status' => 'active',
+        'assigned_to' => $agent->id,
+    ]);
+}
+
+// =====================
+// PROPERTIES
+// =====================
+
+$clients = Client::all();
+
+$propertiesData = [
+    [
+        'title' => '3BHK Premium Apartment',
+        'property_type' => 'apartment',
+        'status' => 'available',
+        'listing_type' => 'sale',
+        'price' => 8500000,
+        'city' => 'Mumbai',
+        'locality' => 'Andheri West',
+    ],
+    [
+        'title' => 'Luxury Villa',
+        'property_type' => 'villa',
+        'status' => 'available',
+        'listing_type' => 'sale',
+        'price' => 25000000,
+        'city' => 'Pune',
+        'locality' => 'Baner',
+    ],
+    [
+        'title' => 'Commercial Office',
+        'property_type' => 'office',
+        'status' => 'available',
+        'listing_type' => 'rent',
+        'price' => 75000,
+        'city' => 'Indore',
+        'locality' => 'Vijay Nagar',
+    ],
+];
+
+// 3 Premium Demo Properties
+foreach ($propertiesData as $property) {
+
+    Property::create(array_merge($property, [
+        'currency' => 'INR',
+        'area' => rand(800,2500),
+        'bedrooms' => rand(2,5),
+        'bathrooms' => rand(1,4),
+        'floor' => rand(1,15),
+        'address' => 'Demo Address',
+        'description' => 'Premium demo property',
+        'rera_number' => 'RERA'.rand(10000,99999),
+        'owner_id' => $clients->random()->id,
+        'added_by' => $agent->id,
+    ]));
+}
+
+// 15 Random Properties
+$propertyTypes = ['apartment','villa','plot','office','shop'];
+$cities = ['Mumbai','Pune','Delhi','Indore','Bangalore'];
+
+for ($i = 1; $i <= 15; $i++) {
+
+    Property::create([
+        'title' => "Property {$i}",
+        'property_type' => collect($propertyTypes)->random(),
+        'status' => collect(['available','sold','rented'])->random(),
+        'listing_type' => collect(['sale','rent'])->random(),
+        'price' => rand(1500000,30000000),
+        'currency' => 'INR',
+        'area' => rand(600,4000),
+        'bedrooms' => rand(1,5),
+        'bathrooms' => rand(1,4),
+        'floor' => rand(1,20),
+        'city' => collect($cities)->random(),
+        'locality' => 'Prime Location',
+        'address' => 'Demo Address',
+        'description' => 'Sample demo property for showcase.',
+        'rera_number' => 'RERA'.rand(10000,99999),
+        'owner_id' => $clients->random()->id,
+        'added_by' => $agent->id,
+    ]);
+}
+// =====================
+// SITE VISITS
+// =====================
+
+$properties = Property::all();
+$leads = Lead::all();
+
+for ($i = 1; $i <= 15; $i++) {
+
+    SiteVisit::create([
+        'lead_id' => $leads->random()->id,
+        'property_id' => $properties->random()->id,
+        'agent_id' => $agent->id,
+        'visit_datetime' => now()->addDays(rand(-15,15)),
+        'status' => collect([
+            'scheduled',
+            'completed',
+            'cancelled'
+        ])->random(),
+        'feedback' => collect([
+            'Interested in property',
+            'Needs negotiation',
+            'Will discuss with family',
+            'Follow up required',
+            'Budget mismatch'
+        ])->random(),
+        'interest_level' => collect([
+            'low',
+            'medium',
+            'high'
+        ])->random(),
+    ]);
+}
 
         // =====================
         // DEALS
@@ -83,5 +278,31 @@ class DemoDataSeeder extends Seeder
                 'actual_close_date' => in_array($deal['stage'], ['won', 'lost']) ? now()->subDays(rand(1, 30)) : null,
             ]));
         }
+
+        for ($i = 1; $i <= 15; $i++) {
+
+    $stage = collect([
+        'new',
+        'site_visit',
+        'negotiation',
+        'docs_pending',
+        'won',
+        'lost'
+    ])->random();
+
+    Deal::create([
+        'title' => "Property Deal {$i}",
+        'deal_value' => rand(2000000,30000000),
+        'commission' => rand(50000,500000),
+        'stage' => $stage,
+        'currency' => 'INR',
+        'client_id' => $clients->random()->id,
+        'assigned_to' => $agent->id,
+        'expected_close_date' => now()->addDays(rand(5,90)),
+        'actual_close_date' => in_array($stage,['won','lost'])
+            ? now()->subDays(rand(1,30))
+            : null,
+    ]);
+}
     }
 }
